@@ -417,6 +417,18 @@ class MetaDict(dict):
     """
     _merge_options = ('indexes',)
 
+    def __getattr__(self, key):
+
+        try:
+
+            return self[key]
+
+        except KeyError:
+
+            raise AttributeError
+
+        return self.get(key)
+
     def merge(self, new_options):
         for k, v in new_options.iteritems():
             if k in self._merge_options:
